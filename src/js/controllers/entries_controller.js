@@ -58,4 +58,31 @@ export default class extends Controller {
       url: entry.url,
     });
   }
+
+  async fillInCredentials({ params }) {
+    const entry = params.entry;
+    // console.log("Filling in credentials for entry:", entry);
+
+    const [activeTab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+
+    if (!activeTab) return;
+
+    let parsedUrl;
+    try {
+      parsedUrl = new URL(activeTab.url);
+    } catch (error) {
+      console.error("Invalid URL in activeTab: ", error);
+    }
+
+    const activeEntry = entry.url.includes(parsedUrl.host);
+    if (activeEntry) {
+      chrome.tabs.sendMessage(activeTab.id, {
+        username: entry.username,
+        password: entry.password,
+      });
+    }
+  }
 }
