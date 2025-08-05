@@ -1,19 +1,25 @@
 export const sidebar = (entries) => {
-  return entries.map(entry => (`
+  return entries
+    .map(
+      (entry) => `
     <div class="entry-item"
       data-action="click->entries#updateMain"
       data-entries-entry-param='${JSON.stringify(entry)}'
       data-search-target="item"
     >
       <div class="entry-favicon">
-        <img src="https://www.google.com/s2/favicons?domain=${entry.url}&sz=32" />
+        <img src="https://www.google.com/s2/favicons?domain=${
+          entry.url
+        }&sz=32" />
       </div>
       <div>
         ${entry.name}
       </div>
     </div>
-  `)).join('')
-}
+  `
+    )
+    .join("");
+};
 
 export const main = (entry) => {
   return `
@@ -21,7 +27,9 @@ export const main = (entry) => {
     <div class="d-flex align-items-center justify-content-between mb-3">
       <div class="d-flex align-items-center">
         <div class="entry-favicon">
-          <img src="https://www.google.com/s2/favicons?domain=${entry.url}&sz=32" />
+          <img src="https://www.google.com/s2/favicons?domain=${
+            entry.url
+          }&sz=32" />
         </div>
         <div>
           ${entry.name}
@@ -48,7 +56,9 @@ export const main = (entry) => {
       <ul class="list-group">
         <li class="py-0 list-group-item d-flex justify-content-between align-items-center">
           <div class="form-floating w-100">
-            <input type="text" readonly class="form-control-plaintext px-0 pb-0" id="usernameInput" placeholder="username" value="${entry.username}">
+            <input type="text" readonly class="form-control-plaintext px-0 pb-0" id="usernameInput" placeholder="username" value="${
+              entry.username
+            }">
             <label class="fw-bold text-dark px-0" for="usernameInput">Username</label>
           </div>
           <div class="d-flex">
@@ -64,7 +74,9 @@ export const main = (entry) => {
         </li>
         <li class="py-0 list-group-item d-flex justify-content-between align-items-center" data-controller="toggle-password">
           <div class="form-floating w-100">
-            <input type="password" readonly class="form-control-plaintext px-0 pb-0" id="passwordInput" placeholder="password" value="${entry.password}" data-toggle-password-target="input">
+            <input type="password" readonly class="form-control-plaintext px-0 pb-0" id="passwordInput" placeholder="password" value="${
+              entry.password
+            }" data-toggle-password-target="passwordInput">
             <label class="fw-bold text-dark px-0" for="passwordInput">Password</label>
           </div>
           <div class="d-flex">
@@ -95,5 +107,5 @@ export const main = (entry) => {
     Created at: ${entry.created_at}
   </div>
 </div>
-  `
-}
+  `;
+};
