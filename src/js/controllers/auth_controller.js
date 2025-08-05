@@ -8,6 +8,10 @@ import {
 export default class extends Controller {
   static targets = ["flash", "email", "password"];
 
+  connect() {
+    document.addEventListener("auth:signOut", this.signOut);
+  }
+
   async signIn() {
     const email = this.emailTarget.value;
     const password = this.passwordTarget.value;
@@ -37,8 +41,8 @@ export default class extends Controller {
     }
   }
 
-  async signOut() {
+  signOut = async () => {
     await clearSessionStorage("token");
     Turbo.visit("/frames/signin.html", { frame: "app" });
-  }
+  };
 }
